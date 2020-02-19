@@ -277,6 +277,7 @@ public class Context extends LinkedHashMap<String, Object> {
             final Map<String, Boolean> defined = new LinkedHashMap<String, Boolean>();
             for (final String key : ((Map<String, Object>) context).keySet()) {
                 if (JsonLdConsts.BASE.equals(key) || JsonLdConsts.VOCAB.equals(key)
+                        || JsonLdConsts.VERSION.equals(key)
                         || JsonLdConsts.LANGUAGE.equals(key)) {
                     continue;
                 }
@@ -462,9 +463,10 @@ public class Context extends LinkedHashMap<String, Object> {
             final String container = (String) val.get(JsonLdConsts.CONTAINER);
             if (!JsonLdConsts.LIST.equals(container) && !JsonLdConsts.SET.equals(container)
                     && !JsonLdConsts.INDEX.equals(container)
+                    && !JsonLdConsts.GRAPH.equals(container)
                     && !JsonLdConsts.LANGUAGE.equals(container)) {
                 throw new JsonLdError(Error.INVALID_CONTAINER_MAPPING,
-                        "@container must be either @list, @set, @index, or @language");
+                        "@container must be either @list, @set, @index, @graph, or @language");
             }
             definition.put(JsonLdConsts.CONTAINER, container);
             if (JsonLdConsts.TYPE.equals(term)) {
